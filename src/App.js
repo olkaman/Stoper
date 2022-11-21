@@ -7,15 +7,18 @@ function App() {
   const [timer, setTimer] = useState(null);
 
   const startTimer = () => {
-    setTimer(
-      setInterval(() => {
-        setTime((prevValue) => prevValue + 1);
-      }, 1)
-    );
+    if (!timer) {
+      setTimer(
+        setInterval(() => {
+          setTime((prevValue) => prevValue + 1);
+        }, 0)
+      );
+    }
   };
 
   const stopTimer = () => {
     clearInterval(timer);
+    setTimer(null);
   };
 
   const reset = () => {
@@ -26,7 +29,7 @@ function App() {
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, []);
+  }, [timer]);
 
   return (
     <div className='container'>
